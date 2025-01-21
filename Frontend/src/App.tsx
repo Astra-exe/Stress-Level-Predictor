@@ -9,7 +9,7 @@ function App() {
     e.preventDefault();
     const dataToSend = Object.fromEntries(new FormData(e.target));
     const data = await getStressData({ userData: dataToSend });
-    console.log({ afterRequest: data });
+    setStressLevel(data.stress_level);
   };
 
   return (
