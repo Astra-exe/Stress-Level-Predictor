@@ -33,7 +33,6 @@ limiter = Limiter(
 
 #Create an API endpoint
 @app.route('/predict', methods=['POST'])
-@limiter.limit("10 per minute")
 def predict():
     try:
         #get data entry from the user
@@ -64,4 +63,4 @@ def predict():
         return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    app.run(port=3000)
