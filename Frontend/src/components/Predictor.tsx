@@ -52,11 +52,11 @@ export default function Predictor({ nextStatus, setResultsData }) {
       return;
     }
 
-    const { stres_level, stress_tip, sleep_tip, bmi_tip } = await getStressData(
+    const { stress_level, stress_tip, sleep_tip, bmi_tip } = await getStressData(
       dataForm
     );
     setResultsData({
-      stresLevel: stres_level,
+      stresLevel: stress_level,
       stressTip: stress_tip,
       sleepTip: sleep_tip,
       bmiTip: bmi_tip,
