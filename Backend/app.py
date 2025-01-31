@@ -8,6 +8,9 @@ import pandas as pd
 import random
 
 def calculate_bmi(weight, height):
+    weight = int(weight)
+    height = float(height)
+    #converto int and float
     bmi = weight / (height ** 2)
     if bmi < 25:
         return 0 #normal
@@ -98,21 +101,21 @@ def predict():
         input_data['BMI_category_encoded'] = input_data.apply(lambda x: calculate_bmi(x['Weight'], x['Height']), axis=1)
 
 
-        bmi = input_data['Weight'] / (input_data['Height'] ** 2)
+        #bmi = input_data['Weight'] / (input_data['Height'] ** 2)
 
         #drop the weight and height columns
         input_data = input_data.drop(['Weight', 'Height'], axis=1)
 
         #make sure that the data is in the correct order
         input_data = input_data[['Age', 'Sleep Duration', 'Heart Rate', 'Daily Steps', 'Occupation_encoded', 'BMI_category_encoded','Gender_encoded']]
-
+        input_data['Sleep Duration'] = input_data['Sleep Duration'].astype(float)
         #Make a prediction
         prediction = model.predict(input_data)
         stress_level = int(prediction[0])
         make_recommendations = recommendations(
             stress_level, 
-            int(input_data['BMI_category_encoded']), 
-            int(input_data['Sleep Duration'])
+            int(input_data['BMI_category_encoded'].iloc[0]), 
+            int(input_data['Sleep Duration'].iloc[0])
         )
         #recomendations = recommendations(int(prediction), bmi, input_data['Sleep Duration'])
 
