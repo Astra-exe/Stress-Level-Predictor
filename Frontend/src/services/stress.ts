@@ -1,4 +1,6 @@
-export async function getStressData({userData}) {
+import { StressFormData } from "../types"
+
+export async function getStressData(userData: StressFormData) {
   const data = await fetch('http://127.0.0.1:3000/predict', {
     headers: {
       "Content-Type": "application/json",
