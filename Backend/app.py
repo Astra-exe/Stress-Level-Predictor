@@ -88,6 +88,9 @@ limiter = Limiter(
 
 
 #Create an API endpoint
+@app.route('/', methods=['GET'])
+def index():
+    return "Welcome to the Stress Prediction API"
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
