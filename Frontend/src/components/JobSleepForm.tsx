@@ -18,12 +18,14 @@ export default function JobSleepForm({
         <select
           name="Occupation_encoded"
           id="Occupation_encoded"
-          className="px-2 py-1 border rounded-lg"
+          className="input text-sm font-semibold rounded-lg mt-1 contain-inline-size w-full py-1.5 px-3 ring-1 ring-gray-400 shadow-sm sm:text-base"
           required
           value={job}
           onChange={(e) => onChangeFields({ job: e.target.value })}
         >
-          <option value="">Selecciona una ocupación</option>
+          <option value="" disabled hidden>
+            Selecciona una ocupación
+          </option>
           <option value="0">Ciencia</option>
           <option value="1">Educacion</option>
           <option value="2">Finanzas</option>
@@ -36,16 +38,19 @@ export default function JobSleepForm({
         </select>
       </label>
       <label htmlFor="Sleep Duration" className="flex flex-col gap-1">
-        <span className="font-semibold text-lg">Horas de sueño(decimales)</span>
+        <span className="font-semibold text-lg">Horas de sueño</span>
         <input
           type="number"
           id="Sleep Duration"
           name="Sleep Duration"
           placeholder="8"
+          min={1}
+          max={12}
+          step="0.01"
           required
           value={sleepHours}
           onChange={(e) => onChangeFields({ sleepHours: e.target.value })}
-          className="rounded-lg mt-1 block w-full bg-white/5 py-1.5 px-3  ring-1 ring-gray-400 shadow-sm sm:text-sm"
+          className="input text-sm font-semibold rounded-lg mt-1 contain-inline-size w-full py-1.5 px-3 ring-1 ring-gray-400 shadow-sm sm:text-base"
         />
       </label>
     </FormWrapper>
