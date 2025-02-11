@@ -11,6 +11,7 @@ requests==2.32.3
 rich==13.9.4
 wrapt==1.17.2
 google-generativeai==0.8.4
+grpcio==1.70.0
 tqdm==4.67.1
 httpx==0.28.1
 python-dotenv==1.0.1
