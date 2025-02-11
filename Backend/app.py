@@ -112,8 +112,9 @@ def predict():
 
         # Calculate the BMI category
         input_data['BMI_category_encoded'] = input_data.apply(lambda x: calculate_bmi(x['Weight'], x['Height']), axis=1)
-
-        bmi_ind = input_data['Weight'] / (input_data['Height'] ** 2)
+        weight_ind = float(input_data['Weight'].iloc[0])
+        height_ind = float(input_data['Height'].iloc[0])
+        bmi_ind = weight_ind / height_ind ** 2
 
         #drop the weight and height columns
         input_data = input_data.drop(['Weight', 'Height'], axis=1)
