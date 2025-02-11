@@ -2,10 +2,20 @@ from flask import Flask, request, jsonify
 from flask_limiter import Limiter
 from flask_cors import CORS
 from flask_limiter.util import get_remote_address
-#from openai import OpenAI
 import joblib
 import pandas as pd
 import random
+import os
+from dotenv import load_dotenv
+import google.generativeai as genai
+
+#Load the environment variables
+load_dotenv()
+api_key = os.getenv('API_KEY_GOOGLE')
+
+#configure the generative AI
+genai.configure(api_key=api_key)
+g_model = genai.GenerativeModel('gemini-2.0-flash')
 
 def calculate_bmi(weight, height):
     weight = int(weight)
@@ -20,56 +30,56 @@ def calculate_bmi(weight, height):
         return 2 #obese
     
 #generate recommendations based on the stress level, BMI category, and sleep duration
-def recommendations(stress_level, bmi_category, sleep_duration):
-    recommendations = {
-        "low": [
-            "Parece que estás manejando bien el estrés. ¡Sigue así!",
-            "Recuerda tomarte momentos para disfrutar actividades que te hagan feliz.",
-            "Incorpora una caminata diaria para mantener el buen ánimo y la salud."
-        ],
-        "moderate": [
-            "Empieza a ponerle atención. Prueba con ejercicios de respiración profunda.",
-            "Reduce el tiempo frente a pantallas antes de dormir para mejorar tu descanso.",
-            "Intenta una actividad relajante como yoga o meditación para despejarte."
-        ],
-        "high": [
-            "Esto no debería pasar. Habla con un amigo o ser querido para desahogarte.",
-            "Prueba técnicas como mindfulness para reducir la tensión diaria.",
-            "Evita sobrecargarte de tareas y prioriza lo que realmente importa."
-        ]
+def recommendations(stress_level, bmi, sleep_duration):
+    # Mapear nivel de estrés a términos cualitativos
+    stress_labels = {
+        3: "bajo",
+        4: "bajo",
+        5: "moderado",
+        6: "moderado",
+        7: "elevado",
+        8: "elevado"
     }
+    stress_label = stress_labels[stress_level]
+    #dos decimales
+    bmi_n = round(float(bmi), 2)
 
-    #sleep recommendations
-    if sleep_duration < 6:
-        sleep_tip = "Es importante mejorar la calidad del sueño. Intenta dormir al menos 7 horas."
-    elif sleep_duration > 8:
-        sleep_tip = "Dormir demasiado puede causar cansancio. Intenta mantener un horario constante."
-    else:
-        sleep_tip = "Tu sueño parece adecuado. Sigue manteniendo un buen ritmo."
-    
-    #bmi recommendations
-    if bmi_category == 0:
-        bmi_tip = "Tu peso está en un rango saludable. ¡Sigue cuidándote!"
-    elif bmi_category == 1:
-        bmi_tip = "Intenta mantener una dieta balanceada y hacer ejercicio regularmente."
-    else:
-        bmi_tip = "Es importante cuidar tu salud. Consulta a un profesional para mejorar tu alimentación."
-    
-    #make a random choice for a stress recommendation
-    if stress_level <= 4:
-        stress_tips = '¡Estrés bajo!' + random.choice(recommendations["low"])
-    elif stress_level <= 6:
-        stress_tips = '¡Estrés moderado!' + random.choice(recommendations["moderate"])
-    else:
-        stress_tips = '¡Cuidado estrés elevado!' + random.choice(recommendations["high"])
-    
-    #mix all the recommendations
-    return {
-        "stress_tip": stress_tips,
-        "bmi_tip": bmi_tip,
-        "sleep_tip": sleep_tip
-    }
+    prompt = f"""
+    Eres un asistente de salud enfocado en gestión del estrés. Genera un mensaje EN ESPAÑOL con este formato:
 
+    ##**Encabezado** (máximo 200 caracteres):
+    Después analizar tus datos, parece que tu nivel de estrés está clasificado como **{stress_label.upper()}**.\n
+    [Breve análisis relacionando BMI ({bmi_n}) y sueño ({sleep_duration}h) como factores contribuyentes. Usa 1 emoji. Ejemplo: "Combinado con un indice de masa corporal: {bmi_n:.2f} lo cual indica que estás en [aqui categorizalo (normal, obeso, etc)] y solo {sleep_duration}h de sueño, es clave actuar hoy 🌱"]\n
+
+    **Recomendaciones** (ordenadas por prioridad):
+    1. **Manejo del estrés** (¡Enfóquemonos aquí!):
+       - 2 técnicas comprobadas para nivel {stress_label}.
+       - Ejemplo concreto: método paso a paso + frecuencia.
+    
+    2. **Apoyo físico** (Para un BMI: {bmi_n} (categorizalo)):
+       - 1 alimento antiestrés con receta rápida.
+       - 1 micro-actividad física (aprox 10 min/día).
+    
+    3. **Recuperación nocturna** ({sleep_duration}h):
+       - 1 ajuste en tu ambiente de sueño.
+       - 1 hábito pre-cama para mejorar calidad.
+    
+    **Cierre motivador** (1 frase + emoji):
+    [Ejemplo: "Pequeños cambios generan grandes resultados. ¡Hoy es tu día! 💪"]
+
+    Reglas:
+    - Lenguaje cercano y positivo (tuteo).
+    - Énfasis en estrés como factor principal.
+    - Usar negritas solo en títulos y los titulos los puedes iterar y acomodar el copy que mejor se ajuste.
+    - Evita usar los titulos de ejemplo, sé original los ejemplos solo están para guiar.
+    - Incluir 1 emoji por sección.
+    - Evitar términos numéricos del estrés (solo "elevado", etc).
+    - Trata de ser variado al dar las recomendaciones.
+    - Evita tus mensajes de respuesta (ejemplo: Aqui tienes, claro) limitate a responder en el formato dado
+    - El formato de salida debe ser 100% markdown
+    """
+    response = g_model.generate_content(prompt)
+    return response.text
 #Load the ML model
 model = joblib.load('stress_predict.pkl')
 
@@ -103,8 +113,7 @@ def predict():
         # Calculate the BMI category
         input_data['BMI_category_encoded'] = input_data.apply(lambda x: calculate_bmi(x['Weight'], x['Height']), axis=1)
 
-
-        #bmi = input_data['Weight'] / (input_data['Height'] ** 2)
+        bmi_ind = input_data['Weight'] / (input_data['Height'] ** 2)
 
         #drop the weight and height columns
         input_data = input_data.drop(['Weight', 'Height'], axis=1)
@@ -117,16 +126,13 @@ def predict():
         stress_level = int(prediction[0])
         make_recommendations = recommendations(
             stress_level, 
-            int(input_data['BMI_category_encoded'].iloc[0]), 
+            bmi_ind, 
             int(input_data['Sleep Duration'].iloc[0])
         )
-        #recomendations = recommendations(int(prediction), bmi, input_data['Sleep Duration'])
 
         #Return the prediction in JSON format
         return jsonify({'stress_level': int(prediction[0]),
-                        'stress_tip': make_recommendations['stress_tip'],
-                        'bmi_tip': make_recommendations['bmi_tip'],
-                        'sleep_tip': make_recommendations['sleep_tip']
+                        'recommendations': make_recommendations.replace('\\n', '\n')
                         })
     
     except Exception as e:
