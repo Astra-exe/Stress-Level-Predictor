@@ -1,16 +1,45 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-primary: #FF9D35;
   --color-background: #F6F6F6;
   --color-dark: #4E4E4E;
+  --color-valid: hsl(140 80% 40%);
+  --color-invalid: hsl(10 90% 45%);
+
+  --animate-blob: blob 7s ease-in-out infinite;
+  --animate-border-spin: border-spin 7s linear infinite;
+
+  @keyframes blob {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+        transform: translate(30px, -40px) scale(1.1);
+    }
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1);
+    }
+  }
+
+  @keyframes border-spin {
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
 }
-
-
 * {
 	/* margin: 0; */
 	/* padding: 0; */
 	box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Applies smooth scrolling to the entire page */
 }
 
 body {
@@ -46,3 +75,80 @@ img, video, svg {
     }
 }
 
+.input {
+    --is-valid: 0;
+    --is-invalid: 0;
+    --input: hsl(0, 0%, 100%);
+
+    border: 0;
+    background:
+        linear-gradient(var(--input), var(--input)) padding-box,
+        linear-gradient(var(--color-invalid), var(--color-invalid)) calc((1 - var(--is-invalid)) * -100cqi) 0 / 100% 100% border-box,
+        linear-gradient(var(--color-valid), var(--color-valid)) calc((1 - var(--is-valid)) * 100cqi) 0 / 100% 100% border-box,
+        var(--input);
+    border: 2px solid transparent;
+    background-repeat: no-repeat;
+    outline: none;
+    transition: background-position 0.5s;
+    /* box-shadow: 0 1px hsl(0 0% 100% / 0.35) inset,
+    0 -1px hsl(0 0% 0% / 1) inset,
+    0 10px 20px -5px hsl(0 0% 0% / 1); */
+    }
+
+
+.input:invalid:not(:placeholder-shown):not(:focus-visible) {
+    --is-invalid: 1;
+}
+
+.input:valid {
+    --is-valid: 1;
+}
+
+select.input:required:invalid {
+    color: #999999; /* Color for invalid state */
+    border: 0;
+}
+
+select.input:required:invalid option[value=""] {
+    display: none; /* Hide the placeholder option */
+}
+
+.grid-background {
+    position: relative;
+}
+
+.grid-background::before {
+    --size: 60px;
+    --line: color-mix(in lch, #000, transparent 60%);
+    content: "";
+    height: 70vh;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: rotate(180deg);
+    background: linear-gradient(
+            90deg,
+            var(--line) 1px,
+            transparent 1px var(--size)
+        )
+        50% 50% / var(--size) var(--size),
+        linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% /
+        var(--size) var(--size);
+    mask: linear-gradient(-20deg, transparent 50%, white);
+    transform-style: flat;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.blob {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;
+}
+
+.conic__background::before {
+    background: conic-gradient(
+      rgba(244, 235, 114, 0.7) 0deg,
+      rgba(252, 214, 132, 0.7) 0deg,
+      transparent 80deg
+    );
+}
