@@ -2,7 +2,7 @@ import StressBar from "./StressBar";
 
 export default function Results({ resultsData }) {
   const { stresLevel, recommendations } = resultsData;
-
+  console.log(recommendations)
   return (
     <section className="mt-60">
       <h2 className="text-[54px] leading-16 tracking-wider font-semibold text-center">
