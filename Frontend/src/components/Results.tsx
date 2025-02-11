@@ -1,7 +1,7 @@
 import StressBar from "./StressBar";
 
 export default function Results({ resultsData }) {
-  const { stresLevel, reccomendations } = resultsData;
+  const { stresLevel, recommendations } = resultsData;
 
   return (
     <section className="mt-60">
@@ -29,7 +29,7 @@ export default function Results({ resultsData }) {
                 </g>
               </svg>
             </span>
-            <div className="prose md:prose-lg">{reccomendations}</div>
+            <div className="prose md:prose-lg">{recommendations}</div>
           </div>
         </article>
         <StressBar stressLevel={stresLevel ?? 2} />

@@ -12,7 +12,7 @@ function App() {
   const [statusApp, setStatusApp] = useState("init");
   const [resultsData, setResultsData] = useState({
     stressLevel: null,
-    reccomendations: null,
+    recommendations: null,
   });
 
   const changeStatusApp = (status: string) => {
