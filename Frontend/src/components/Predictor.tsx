@@ -52,57 +52,56 @@ export default function Predictor({ nextStatus, setResultsData }) {
       return;
     }
 
-    const { stress_level, stress_tip, sleep_tip, bmi_tip } = await getStressData(
-      dataForm
-    );
+    const { stress_level, recommendations } = await getStressData(dataForm);
     setResultsData({
       stresLevel: stress_level,
-      stressTip: stress_tip,
-      sleepTip: sleep_tip,
-      bmiTip: bmi_tip,
+      recommendations,
     });
     // alert(stressLevel);
-    nextStatus("results");
+    nextStatus("loading");
   };
 
   return (
-    <div className="mt-28">
-      <section className="w-3/4 mx-auto">
+    <div className="mt-28" id="app">
+      <section className="relative w-3/4 mx-auto">
+        <div className="blob absolute top-10 left-0 w-40 h-40 bg-primary mix-blend-multiply blur-xl opacity-65 rounded-[30% 70% 70% 30% / 30% 30% 70% 70%] animate-blob"></div>
+        <div className="blob absolute bottom-0 right-0 w-44 h-44 bg-primary mix-blend-multiply blur-xl opacity-65 rounded-[30% 70% 70% 30% / 30% 30% 70% 70%] animate-blob"></div>
         <div className="text-center">
           <h2 className="text-5xl leading-16 tracking-wider font-semibold">
             Conoce tu nivel de Estrés
           </h2>
-          <p className="mt-2 text-lg">Llena lo siguiente para saberlo...</p>
+          <p className="mt-2 text-lg">🚀 Llena lo siguiente para saberlo ...</p>
         </div>
-        <div className="mt-10 max-w-2xl mx-auto p-8 bg-linear-to-r from-[#ECEEED] to-[#F9F9F9] drop-shadow-2xl rounded-lg">
-          <form onSubmit={handleSumbit}>
+        <div className="conic__background relative h-auto mt-10 max-w-2xl mx-auto drop-shadow-2xl rounded-lg overflow-hidden before:w-full before:h-full before:content-[''] before:absolute before:animate-border-spin bg-linear-to-r from-[#ECEEED] to-[#F9F9F9] p-1.5">
+          <div className="relative p-8 left-[1px] top-[1px] h-[calc(100%-1px)] w-[calc(100%-1px)] bg-linear-to-r from-[#ECEEED] to-[#F9F9F9]">
             {/* Steps info */}
             <span>
-              {currentStepIndex} / {stepsLength}
+              {currentStepIndex + 1} / {stepsLength}
             </span>
+            <form onSubmit={handleSumbit}>
+              {/* Content inputs by step */}
+              {step}
 
-            {/* Content inputs by step */}
-            {step}
-
-            {/* Navigation Buttons */}
-            <div className="mt-12 flex justify-between">
-              {!isFirstStep && (
+              {/* Navigation Buttons */}
+              <div className="mt-12 flex justify-between">
+                {!isFirstStep && (
+                  <button
+                    type="button"
+                    className="cursor-pointer px-4 py-2 text-sm bg-black text-white rounded-lg hover:shadow-xl hover:shadow-gray-300 transition-shadow"
+                    onClick={prevStep}
+                  >
+                    Anterior
+                  </button>
+                )}
                 <button
-                  type="button"
+                  type="submit"
                   className="cursor-pointer px-4 py-2 text-sm bg-black text-white rounded-lg hover:shadow-xl hover:shadow-gray-300 transition-shadow"
-                  onClick={prevStep}
                 >
-                  Anterior
+                  {isLastStep ? "Enviar" : "Siguiente"}
                 </button>
-              )}
-              <button
-                type="submit"
-                className="cursor-pointer px-4 py-2 text-sm bg-black text-white rounded-lg hover:shadow-xl hover:shadow-gray-300 transition-shadow"
-              >
-                {isLastStep ? "Enviar" : "Siguiente"}
-              </button>
-            </div>
-          </form>
+              </div>
+            </form>
+          </div>
         </div>
       </section>
     </div>

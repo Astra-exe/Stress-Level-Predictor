@@ -6,15 +6,13 @@ import Loader from "./components/Loader";
 import Results from "./components/Results";
 import "./App.css";
 
-// Status App => 'init', 'sending', 'results'
+// Status App => 'init', 'loading', 'results'
 
 function App() {
   const [statusApp, setStatusApp] = useState("init");
   const [resultsData, setResultsData] = useState({
     stressLevel: null,
-    stressTip: null,
-    sleepTip: null,
-    bmiTip: null,
+    reccomendations: null,
   });
 
   const changeStatusApp = (status: string) => {
@@ -25,14 +23,16 @@ function App() {
     <>
       <div className="min-w-xs max-w-[2240px] min-h-dvw w-full bg-white mx-auto">
         <Hero />
-        {statusApp === "init" && (
-          <Predictor
-            nextStatus={changeStatusApp}
-            setResultsData={setResultsData}
-          />
-        )}
-        {statusApp === "sending" && <Loader />}
-        {statusApp === "results" && <Results resultsData={resultsData} />}
+        <div className="relative">
+          {statusApp === "init" && (
+            <Predictor
+              nextStatus={changeStatusApp}
+              setResultsData={setResultsData}
+            />
+          )}
+          {statusApp === "loading" && <Loader nextStatus={changeStatusApp} />}
+          {statusApp === "results" && <Results resultsData={resultsData} />}
+        </div>
         <Footer />
       </div>
     </>
