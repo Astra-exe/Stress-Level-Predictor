@@ -52,20 +52,22 @@ export default function Predictor({ nextStatus, setResultsData }) {
       return;
     }
 
+    nextStatus("loading");
     const { stress_level, recommendations } = await getStressData(dataForm);
     setResultsData({
       stresLevel: stress_level,
       recommendations,
     });
-    // alert(stressLevel);
-    nextStatus("loading");
   };
 
   return (
     <div className="mt-28" id="app">
       <section className="relative w-3/4 mx-auto">
         <div className="blob absolute top-10 left-0 w-40 h-40 bg-primary mix-blend-multiply blur-xl opacity-65 rounded-[30% 70% 70% 30% / 30% 30% 70% 70%] animate-blob"></div>
-        <div className="blob absolute bottom-0 right-0 w-44 h-44 bg-primary mix-blend-multiply blur-xl opacity-65 rounded-[30% 70% 70% 30% / 30% 30% 70% 70%] animate-blob"></div>
+        <div
+          className="blob absolute bottom-0 right-0 w-44 h-44 bg-primary mix-blend-multiply blur-xl opacity-65 rounded-[30% 70% 70% 30% / 30% 30% 70% 70%] animate-blob"
+          style={{ animationDirection: "reverse" }}
+        ></div>
         <div className="text-center">
           <h2 className="text-5xl leading-16 tracking-wider font-semibold">
             Conoce tu nivel de Estrés
