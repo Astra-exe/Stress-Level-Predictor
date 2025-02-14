@@ -1,5 +1,5 @@
 <div align="center" id="readme-top">
-  <img src="https://user-images.githubusercontent.com/57516503/207511389-14908b16-f8ad-4911-873f-faade2bba539.png" alt="Logo" width="50%">
+  <img src="![logo_stress](https://github.com/user-attachments/assets/4c2a291c-c0d2-4e88-8c2f-db9c2196d444)" alt="Logo" width="50%">
 
   <p align="center">
     <b>Stress Manager</b> es una herramienta que utiliza inteligencia artificial para predecir niveles de estrés basándose en diversos factores. Además, genera recomendaciones personalizadas para los usuarios.
