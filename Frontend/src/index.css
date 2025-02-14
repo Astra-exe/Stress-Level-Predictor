@@ -47,7 +47,7 @@ body {
 	min-height: 100vh;
 }
 
-p {
+p, li, span, strong {
 	text-wrap: pretty;
 }
 
