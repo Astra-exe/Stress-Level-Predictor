@@ -17,6 +17,7 @@ export default function JobSleepForm({
         <span className="font-semibold text-lg">Ocupación</span>
         <select
           name="Occupation_encoded"
+          autoFocus
           id="Occupation_encoded"
           className="input text-sm font-semibold rounded-lg mt-1 contain-inline-size w-full py-1.5 px-3 ring-1 ring-gray-400 shadow-sm sm:text-base"
           required

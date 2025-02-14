@@ -17,6 +17,7 @@ export default function WeightHeightForm({
           Peso <span className="text-gray-500 text-base">(kg)</span>
         </span>
         <input
+          autoFocus
           type="number"
           id="weight"
           name="weight"

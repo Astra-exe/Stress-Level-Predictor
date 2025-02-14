@@ -15,7 +15,7 @@ export default function StressBar({ stressLevel }: { stressLevel: number }) {
   const heightPorcentage = `${porcentageValue}%`;
 
   return (
-    <div className="h-auto w-[10%] flex flex-col gap-y-3">
+    <div className="h-full w-full max-h-[50vh] flex flex-col gap-y-3">
       <strong className="text-2xl text-center">
         {porcentageValue.toFixed(1)}%
       </strong>

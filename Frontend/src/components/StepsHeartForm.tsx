@@ -22,6 +22,7 @@ export default function StepsHeartForm({
           </p>
         </div>
         <input
+          autoFocus
           type="number"
           id="Daily Steps"
           name="Daily Steps"
