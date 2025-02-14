@@ -11,7 +11,8 @@ export async function getStressData(userData: StressFormData) {
     "Daily Steps": userData.stepsByDay,
     "Heart Rate": userData.heartRatio,
   }
-  const data = await fetch('http://127.0.0.1:3000/predict', {
+  const URL = 'https://stress-predictor-api.onrender.com/predict'
+  const data = await fetch(URL, {
     headers: {
       "Content-Type": "application/json",
     },
