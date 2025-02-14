@@ -1,8 +1,9 @@
+import ReactMarkdown from "react-markdown";
 import StressBar from "./StressBar";
 
 export default function Results({ resultsData }) {
   const { stresLevel, recommendations } = resultsData;
-  console.log(recommendations)
+
   return (
     <section className="mt-60">
       <h2 className="text-[54px] leading-16 tracking-wider font-semibold text-center">
@@ -29,7 +30,9 @@ export default function Results({ resultsData }) {
                 </g>
               </svg>
             </span>
-            <div className="prose md:prose-lg">{recommendations}</div>
+            <article className="prose md:prose-lg">
+              <ReactMarkdown>{recommendations}</ReactMarkdown>
+            </article>
           </div>
         </article>
         <StressBar stressLevel={stresLevel ?? 2} />
