@@ -44,39 +44,27 @@ def recommendations(stress_level, bmi, sleep_duration):
     bmi_n = round(float(bmi), 2)
 
     prompt = f"""
-    <h1>Encabezado (máximo 200 caracteres):</h1>
-    <p>Después analizar tus datos, parece que tu nivel de estrés está clasificado como <strong>{stress_label.upper()}</strong>.<br>
-    [Aquí un análisis original, puedes tomar como ejemplo: Combinado con un indice de masa corporal: {bmi_n:.2f} lo cual indica que estás en [aquí categorízalo] y solo {sleep_duration}h de sueño, es clave actuar hoy 🌱]</p>
+    Eres un asistente de salud enfocado en gestión del estrés. Genera un mensaje EN ESPAÑOL con este formato:
 
-    <h2>Recomendaciones (ordenadas por prioridad):</h2>
-    <ol class="prioridades">
-        <li>
-            <strong>Manejo del estrés</strong> (¡Enfóquemonos aquí!):
-            <ul class="sub-recomendacion">
-                <li>2 técnicas comprobadas para nivel {stress_label}</li>
-                <li>Ejemplo concreto: método paso a paso + frecuencia</li>
-            </ul>
-        </li>
-        
-        <li>
-            <strong>Apoyo físico</strong> (Para un BMI: {bmi_n} [categorízalo]):
-            <ul class="sub-recomendacion">
-                <li>1 alimento antiestrés con receta rápida</li>
-                <li>1 micro-actividad física (aprox 10 min/día)</li>
-            </ul>
-        </li>
-        
-        <li>
-            <strong>Recuperación nocturna</strong> ({sleep_duration}h):
-            <ul class="sub-recomendacion">
-                <li>1 ajuste en tu ambiente de sueño</li>
-                <li>1 hábito pre-cama para mejorar calidad</li>
-            </ul>
-        </li>
-    </ol>
+    # Encabezado (máximo 200 caracteres):
+    Después analizar tus datos, parece que tu nivel de estrés está clasificado como **{stress_label.upper()}**.
+    [Breve análisis relacionando BMI ({bmi_n}) y sueño ({sleep_duration}h) como factores contribuyentes. Usa 1 emoji. Ejemplo: "Combinado con un indice de masa corporal: {bmi_n:.2f} lo cual indica que estás en [aqui categorizalo (normal, obeso, etc)] y solo {sleep_duration}h de sueño, es clave actuar hoy 🌱"]
 
-    <p class="cierre-motivador"><strong>Cierre motivador</strong><br>
-    [Toma como ejemplo: Pequeños cambios generan grandes resultados. ¡Hoy es tu día! 💪]</p>
+    ## Recomendaciones (ordenadas por prioridad):
+    1. **Manejo del estrés** (¡Enfóquemonos aquí!):
+       - 2 técnicas comprobadas para nivel {stress_label}.
+       - Ejemplo concreto: método paso a paso + frecuencia.
+    
+    2. **Apoyo físico** (Para un BMI: {bmi_n} (categorizalo)):
+       - 1 alimento antiestrés con receta rápida.
+       - 1 micro-actividad física (aprox 10 min/día).
+    
+    3. **Recuperación nocturna** ({sleep_duration}h):
+       - 1 ajuste en tu ambiente de sueño.
+       - 1 hábito pre-cama para mejorar calidad.
+    
+    **Cierre motivador** (1 frase + emoji):
+    [Ejemplo: "Pequeños cambios generan grandes resultados. ¡Hoy es tu día! 💪"]
 
     Reglas:
     - Lenguaje cercano y positivo (tuteo).
@@ -87,6 +75,7 @@ def recommendations(stress_level, bmi, sleep_duration):
     - Evitar términos numéricos del estrés (solo "elevado", etc).
     - Trata de ser variado al dar las recomendaciones.
     - Evita tus mensajes de respuesta (ejemplo: Aqui tienes, claro) limitate a responder en el formato dado
+    - El formato de salida debe ser 100% markdown. No olvides los saltos de linea
     """
     response = g_model.generate_content(prompt)
     return response.text
@@ -140,9 +129,7 @@ def predict():
             bmi_ind, 
             int(input_data['Sleep Duration'].iloc[0])
         )
-        make_recommendations = make_recommendations.replace('\n','')
-        make_recommendations = make_recommendations.replace('```','')
-        make_recommendations = make_recommendations.replace('html','')
+        make_recommendations = make_recommendations.replace('\\n','\n')
         #Return the prediction in JSON format
         return jsonify({'stress_level': int(prediction[0]),
                         'recommendations': make_recommendations
