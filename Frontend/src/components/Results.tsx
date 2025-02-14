@@ -1,5 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import StressBar from "./StressBar";
+import Skeleton from "./Skeleton";
 
 export default function Results({ resultsData }) {
   const { stresLevel, recommendations } = resultsData;
@@ -9,10 +10,10 @@ export default function Results({ resultsData }) {
       <h2 className="text-[54px] leading-16 tracking-wider font-semibold text-center">
         Tu nivel de Estres
       </h2>
-      <div className="relative mt-14 w-3/4 mx-auto flex min-h-[70vh]">
-        <article className="relative max-w-3xl mx-auto group">
+      <div className="relative mt-20 w-3/4 mx-auto grid grid-cols-[1fr_10%] items-center min-h-[80vh] gap-18">
+        <div className="relative w-full mx-auto group">
           <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
-          <div className="py-20 px-14 bg-linear-to-r from-[#ECEEED] to-[#F9F9F9] drop-shadow-2xl rounded-xl">
+          <div className="py-16 px-12 bg-linear-to-r from-[#ECEEED] to-[#F9F9F9] drop-shadow-2xl rounded-xl">
             <span className="bottom-0 right-5 absolute opacity-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -30,11 +31,15 @@ export default function Results({ resultsData }) {
                 </g>
               </svg>
             </span>
-            <article className="prose md:prose-lg">
-              <ReactMarkdown>{recommendations}</ReactMarkdown>
+            <article className="prose-sm">
+              {recommendations ? (
+                <ReactMarkdown>{recommendations}</ReactMarkdown>
+              ) : (
+                <Skeleton />
+              )}
             </article>
           </div>
-        </article>
+        </div>
         <StressBar stressLevel={stresLevel ?? 2} />
       </div>
     </section>
