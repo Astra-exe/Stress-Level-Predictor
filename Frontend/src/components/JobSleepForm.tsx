@@ -14,7 +14,7 @@ export default function JobSleepForm({
   return (
     <FormWrapper title="Ocupacion y Horas de sueno">
       <label htmlFor="Occupation_encoded" className="flex flex-col gap-1">
-        <span className="font-semibold text-lg">Ocupación</span>
+        <span className="font-semibold text-base xs:text-lg">Ocupación</span>
         <select
           name="Occupation_encoded"
           autoFocus
@@ -39,7 +39,9 @@ export default function JobSleepForm({
         </select>
       </label>
       <label htmlFor="Sleep Duration" className="flex flex-col gap-1">
-        <span className="font-semibold text-lg">Horas de sueño</span>
+        <span className="font-semibold text-base xs:text-lg">
+          Horas de sueño
+        </span>
         <input
           type="number"
           id="Sleep Duration"

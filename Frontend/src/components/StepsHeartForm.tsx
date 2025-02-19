@@ -14,7 +14,9 @@ export default function StepsHeartForm({
     <FormWrapper title="Pasos diarios y Latidos por minuto">
       <label htmlFor="Daily Steps" className="flex flex-col gap-1">
         <div>
-          <span className="font-semibold text-lg">Pasos diarios</span>
+          <span className="font-semibold text-base xs:text-lg">
+            Pasos diarios
+          </span>
           <p className="text-xs text-gray-500">
             * Realiza un seguimiento de los pasos con un reloj inteligente o una
             aplicación, o aproxima de acuerdo a tu nivel de sedentarismo:
@@ -36,7 +38,7 @@ export default function StepsHeartForm({
       </label>
       <label htmlFor="Heart Rate" className="flex flex-col gap-1">
         <div>
-          <span className="font-semibold text-lg">
+          <span className="font-semibold text-base xs:text-lg">
             Latidos por minuto (BPM)
           </span>
           <p className="text-xs text-gray-500">

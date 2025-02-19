@@ -13,9 +13,11 @@ export default function AgeGenderForm({
   return (
     <FormWrapper title="Edad y Genero">
       <label htmlFor="age" className="flex flex-col gap-1">
-        <span className="pl-2 font-semibold text-lg transition-opacity">
+        <span className="pl-2 font-semibold text-base xs:text-lg transition-opacity">
           Edad{" "}
-          <span className="font-normal text-gray-500 text-base">(16-70)</span>
+          <span className="font-normal text-gray-500 text-base xs:text-lg">
+            (16-70)
+          </span>
         </span>
         <input
           type="number"
@@ -32,7 +34,7 @@ export default function AgeGenderForm({
         />
       </label>
       <label htmlFor="Gender_encoded" className="flex flex-col gap-1">
-        <span className="font-semibold text-lg">Género</span>
+        <span className="font-semibold text-base xs:text-lg">Género</span>
         <select
           name="Gender_encoded"
           id="Gender_encoded"

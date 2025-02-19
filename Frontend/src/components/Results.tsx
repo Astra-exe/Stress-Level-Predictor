@@ -7,13 +7,14 @@ export default function Results({ resultsData }) {
 
   return (
     <section className="mt-60">
-      <h2 className="text-[54px] leading-16 tracking-wider font-semibold text-center">
+      <h2 className="text-4xl xs:text-5xl md:text-[54px] leading-14 md:leading-16 tracking-wider font-bold text-center">
         Tu nivel de Estres
       </h2>
-      <div className="relative mt-20 w-3/4 mx-auto grid grid-cols-[1fr_10%] items-center min-h-[80vh] gap-18">
+      <div className="relative mt-12 md:mt-20 w-[85%] md:w-3/4 mx-auto grid items-center min-h-[80vh] gap-18">
+        <StressBar stressLevel={stresLevel ?? 2} />
         <div className="relative w-full mx-auto group">
           <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
-          <div className="py-16 px-12 bg-linear-to-r from-[#ECEEED] to-[#F9F9F9] drop-shadow-2xl rounded-xl">
+          <div className="py-14 xs:py-16 px-6 xs:px-10 md:px-12 lg:px-18 bg-linear-to-r from-[#ECEEED] to-[#F9F9F9] drop-shadow-2xl rounded-xl">
             <span className="bottom-0 right-5 absolute opacity-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +32,7 @@ export default function Results({ resultsData }) {
                 </g>
               </svg>
             </span>
-            <article className="prose-sm">
+            <article className="prose prose-sm md:max-w-none md:prose-base prose-h1:font-semibold prose-ol:px-1.5 prose-ul:px-1.5 md:prose-ol:px-2.5 md:prose-ul:px-2.5 md:prose-h1:text-center">
               {recommendations ? (
                 <ReactMarkdown>{recommendations}</ReactMarkdown>
               ) : (
@@ -40,7 +41,6 @@ export default function Results({ resultsData }) {
             </article>
           </div>
         </div>
-        <StressBar stressLevel={stresLevel ?? 2} />
       </div>
     </section>
   );

@@ -13,7 +13,7 @@ export default function WeightHeightForm({
   return (
     <FormWrapper title="Peso y Altura">
       <label htmlFor="weight" className="flex flex-col gap-1">
-        <span className="font-semibold text-lg">
+        <span className="font-semibold text-base xs:text-lg">
           Peso <span className="text-gray-500 text-base">(kg)</span>
         </span>
         <input
@@ -32,8 +32,8 @@ export default function WeightHeightForm({
         />
       </label>
       <label htmlFor="height" className="flex flex-col gap-1">
-        <span className="font-semibold text-lg">
-          Altura <span className="text-gray-500 text-base">(m)</span>
+        <span className="font-semibold text-base xs:text-lg">
+          Altura <span className="text-gray-500">(m)</span>
         </span>
         <input
           type="number"

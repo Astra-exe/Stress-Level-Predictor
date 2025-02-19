@@ -12,17 +12,17 @@ export default function StressBar({ stressLevel }: { stressLevel: number }) {
     ((stressLevel - MIN_STRESS_LEVEL) / (MAX_STRESS_LEVEL - MIN_STRESS_LEVEL)) *
     100;
   const color = getColorByPercentage(porcentageValue);
-  const heightPorcentage = `${porcentageValue}%`;
+  const stressPorcentage = `${Math.round(porcentageValue)}%`;
 
   return (
-    <div className="h-full w-full max-h-[50vh] flex flex-col gap-y-3">
+    <div className="h-full w-full max-h-[70vh] flex flex-col gap-y-3">
       <strong className="text-2xl text-center">
         {porcentageValue.toFixed(1)}%
       </strong>
-      <div className="h-full flex items-end bg-gray-200 rounded-t-full overflow-hidden shadow-2xl">
+      <div className="h-[10vh] flex items-end bg-gray-200 rounded-full overflow-hidden shadow-2xl">
         <div
-          style={{ height: heightPorcentage }}
-          className={`w-full  ${color}`}
+          style={{ width: stressPorcentage }}
+          className={`h-full ${color}`}
         ></div>
       </div>
     </div>
