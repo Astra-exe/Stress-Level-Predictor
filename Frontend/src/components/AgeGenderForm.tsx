@@ -24,7 +24,6 @@ export default function AgeGenderForm({
           id="age"
           name="age"
           placeholder="20"
-          autoFocus
           className="input text-sm font-semibold rounded-lg mt-1 contain-inline-size w-full py-1.5 px-3 ring-1 ring-gray-400 shadow-sm sm:text-base"
           required
           min={16}
