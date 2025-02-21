@@ -1,4 +1,6 @@
-export default function YingYang(props) {
+type YingYangProps = React.SVGProps<SVGSVGElement>;
+
+export default function YingYang(props: YingYangProps) {
   return (
     <svg
       {...props}

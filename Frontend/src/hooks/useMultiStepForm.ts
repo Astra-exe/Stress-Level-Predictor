@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
-export default function useMultiStepForm({steps}) {
+type MultiSteps = {
+  steps: ReactElement[]
+}
+
+
+export default function useMultiStepForm({steps}: MultiSteps) {
   const [stepFormIndex, setStepFormIndex] = useState(0);
 
 

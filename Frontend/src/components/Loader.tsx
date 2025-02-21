@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+type LoaderProps = {
+  nextStatus: (status: string) => void;
+};
 
-export default function Loader({ nextStatus }) {
+export default function Loader({ nextStatus }: LoaderProps) {
   useEffect(() => {
     setTimeout(() => {
       console.log("loading");

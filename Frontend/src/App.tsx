@@ -7,10 +7,14 @@ import Results from "./components/Results";
 import "./App.css";
 
 // Status App => 'init', 'loading', 'results'
+type ResultsData = {
+  stressLevel: null | number;
+  recommendations: null | string;
+};
 
 function App() {
   const [statusApp, setStatusApp] = useState("init");
-  const [resultsData, setResultsData] = useState({
+  const [resultsData, setResultsData] = useState<ResultsData>({
     stressLevel: null,
     recommendations: null,
   });

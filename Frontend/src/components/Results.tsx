@@ -3,20 +3,30 @@ import StressBar from "./StressBar";
 import Skeleton from "./Skeleton";
 import { useRef } from "react";
 
+type ResultsData = {
+  stressLevel: null | number;
+  recommendations: null | string;
+};
+
+type ResultsProps = {
+  resultsData: ResultsData;
+};
+
 const MAX_STRESS_LEVEL = 8;
 const MIN_STRESS_LEVEL = 2; //2 cause stress is never 0
 
-export default function Results({ resultsData }) {
+export default function Results({ resultsData }: ResultsProps) {
   const { stressLevel, recommendations } = resultsData;
   const porcentageValue = Math.round(
-    ((stressLevel - MIN_STRESS_LEVEL) / (MAX_STRESS_LEVEL - MIN_STRESS_LEVEL)) *
+    ((stressLevel ?? 5 - MIN_STRESS_LEVEL) /
+      (MAX_STRESS_LEVEL - MIN_STRESS_LEVEL)) *
       100
   );
   const articleRef = useRef<HTMLElement | null>(null);
 
   const handleClickCopyMarkdown = async () => {
     try {
-      await navigator.clipboard.writeText(recommendations);
+      await navigator.clipboard.writeText(recommendations ?? "");
       console.log("Content copied to clipboard");
       /* Resolved - text copied to clipboard successfully */
     } catch (err) {

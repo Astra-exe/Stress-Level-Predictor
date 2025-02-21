@@ -18,7 +18,20 @@ const INITIAL_DATA: StressFormData = {
   heartRatio: "",
 };
 
-export default function Predictor({ nextStatus, setResultsData }) {
+type ResultsData = {
+  stressLevel: null | number;
+  recommendations: null | string;
+};
+
+type PredictorProps = {
+  nextStatus: (status: string) => void;
+  setResultsData: (results: ResultsData) => void;
+};
+
+export default function Predictor({
+  nextStatus,
+  setResultsData,
+}: PredictorProps) {
   const [dataForm, setDataForm] = useState(INITIAL_DATA);
   const onChangeFields = (fields: Partial<StressFormData>) => {
     setDataForm((prev) => {
