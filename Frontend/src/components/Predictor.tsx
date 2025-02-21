@@ -55,7 +55,7 @@ export default function Predictor({ nextStatus, setResultsData }) {
     nextStatus("loading");
     const { stress_level, recommendations } = await getStressData(dataForm);
     setResultsData({
-      stresLevel: stress_level,
+      stressLevel: stress_level,
       recommendations,
     });
   };
