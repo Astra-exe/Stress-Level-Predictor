@@ -46,7 +46,7 @@ export default function Hero() {
             </span>
             <picture className="block max-w-[260px] md:max-w-[320px] relative z-10">
               <img
-                src="./src/assets/hero-stress.webp"
+                src={girl}
                 alt="Chica estresada"
                 className="w-full h-full object-cover"
               />
