@@ -1,20 +1,52 @@
 import ReactMarkdown from "react-markdown";
 import StressBar from "./StressBar";
 import Skeleton from "./Skeleton";
+import { useRef } from "react";
 
 export default function Results({ resultsData }) {
   const { stresLevel, recommendations } = resultsData;
 
+  const articleRef = useRef<HTMLElement | null>(null);
+
+  const handleClickCopyMarkdown = async () => {
+    try {
+      await navigator.clipboard.writeText(recommendations);
+      console.log("Content copied to clipboard");
+      /* Resolved - text copied to clipboard successfully */
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+      /* Rejected - text failed to copy to the clipboard */
+    }
+  };
+
+  const handleClickCopyText = async () => {
+    const textContext = articleRef.current?.textContent;
+    // Copy plain text
+    try {
+      if (textContext) {
+        await navigator.clipboard.writeText(textContext);
+        console.log("Content copied to clipboard");
+      }
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+
   return (
-    <section className="mt-60">
-      <h2 className="text-4xl xs:text-5xl md:text-[54px] leading-14 md:leading-16 tracking-wider font-bold text-center">
-        Tu nivel de Estres
+    <section className="mt-40">
+      <h2 className="text-4xl xs:text-5xl md:text-[54px] leading-14 md:leading-16 tracking-wider text-center">
+        <strong>
+          Tu nivel de{" "}
+          <span className="relative px-2 z-10 before:content-[''] before:absolute before:w-[calc(100%_+_0.25em)] before:h-full before:bg-gradient-to-r before:from-primary before:to-[#F7DF1F] before:-rotate-2 before:-left-[0.125em] before:top-0 before:-z-10">
+            Estrés
+          </span>
+        </strong>
       </h2>
-      <div className="relative mt-12 md:mt-20 w-[85%] md:w-3/4 mx-auto grid items-center min-h-[80vh] gap-18">
+      <div className="relative mt-12 w-[85%] max-w-5xl md:w-3/4 mx-auto grid items-center min-h-[80vh] gap-18">
         <StressBar stressLevel={stresLevel ?? 2} />
         <div className="relative w-full mx-auto group">
           <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
-          <div className="py-14 xs:py-16 px-6 xs:px-10 md:px-12 lg:px-18 bg-linear-to-r from-[#ECEEED] to-[#F9F9F9] drop-shadow-2xl rounded-xl">
+          <div className="py-14 xs:py-16 px-6 xs:px-10 md:px-12 lg:px-20 bg-linear-to-r from-[#ECEEED] to-[#F9F9F9] drop-shadow-2xl rounded-xl">
             <span className="bottom-0 right-5 absolute opacity-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -32,13 +64,35 @@ export default function Results({ resultsData }) {
                 </g>
               </svg>
             </span>
-            <article className="prose prose-sm md:max-w-none md:prose-base prose-h1:font-semibold prose-ol:px-1.5 prose-ul:px-1.5 md:prose-ol:px-2.5 md:prose-ul:px-2.5 md:prose-h1:text-center">
+            <article
+              ref={articleRef}
+              className="prose prose-sm md:max-w-none md:prose-base prose-h1:font-semibold prose-ol:px-1.5 prose-ul:px-1.5 md:prose-ol:px-2.5 md:prose-ul:px-2.5 md:prose-h1:text-center"
+            >
               {recommendations ? (
                 <ReactMarkdown>{recommendations}</ReactMarkdown>
               ) : (
                 <Skeleton />
               )}
             </article>
+            {recommendations && (
+              <div className="">
+                <button
+                  className="px-3 py-1.5 border cursor-pointer hover:bg-primary transition-colors"
+                  onClick={handleClickCopyMarkdown}
+                >
+                  Copy as markdown
+                </button>
+                <button
+                  className="px-3 py-1.5 border cursor-pointer hover:bg-primary transition-colors"
+                  onClick={handleClickCopyText}
+                >
+                  Copy as text
+                </button>
+                <button className="px-3 py-1.5 border cursor-pointer hover:bg-primary transition-colors">
+                  Share in twitter
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
