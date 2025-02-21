@@ -1,5 +1,6 @@
 import YingYang from "./Icons/YingYang";
 import Relax from "./Icons/Relax";
+import girl from "./src/assets/hero-stress.webp";
 
 export default function Hero() {
   return (
@@ -52,7 +53,7 @@ export default function Hero() {
             </picture>
             <picture className="block max-w-[260px] md:max-w-[320px] absolute top-8 z-0 blur-xl">
               <img
-                src="./src/assets/hero-stress.png"
+                src={girl}
                 alt="Chica estresada"
                 className="w-full h-full object-cover"
               />
