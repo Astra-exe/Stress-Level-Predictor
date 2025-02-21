@@ -1,6 +1,6 @@
 import YingYang from "./Icons/YingYang";
 import Relax from "./Icons/Relax";
-import girl from "./src/assets/hero-stress.webp";
+import girl from "../assets/hero-stress.webp";
 
 export default function Hero() {
   return (
