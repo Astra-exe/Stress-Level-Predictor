@@ -23,7 +23,7 @@ export default function Hero() {
               </a>
             </div>
             <a
-              href="https://medium.com/@brygitman/machine-learning-aplicado-al-diagn%C3%B3stico-de-trastornos-mentales-y-la-inteligencia-artificial-para-5fcc9efd3880"
+              href="https://medium.com/@juan.ramirez.j99/mindfulness-y-machine-learning-72fc42ea86c5"
               rel="noopener"
               target="_blank"
               className="inline-flex justify-center items-center px-4.5 py-2 text-sm xs:text-base font-semibold text-gray-900 hover:underline decoration-primary transition-all underline-offset-3"
