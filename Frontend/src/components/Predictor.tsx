@@ -102,7 +102,7 @@ export default function Predictor({
                 {!isFirstStep && (
                   <button
                     type="button"
-                    className="cursor-pointer px-4 py-2 text-sm bg-black text-white rounded-lg hover:shadow-xl hover:shadow-gray-300 transition-shadow"
+                    className="cursor-pointer px-4 py-2 text-sm bg-black text-white rounded-lg hover:shadow-xl hover:shadow-gray-350 transition-shadow ocus:outline-2 focus:outline-offset-2 focus:outline-primary active:bg-black/75"
                     onClick={prevStep}
                   >
                     Anterior
@@ -110,7 +110,7 @@ export default function Predictor({
                 )}
                 <button
                   type="submit"
-                  className="cursor-pointer px-4 py-2 text-sm bg-black text-white rounded-lg hover:shadow-xl hover:shadow-gray-300 transition-shadow"
+                  className="ml-auto cursor-pointer px-4 py-2 text-sm bg-black text-white rounded-lg hover:shadow-xl hover:shadow-gray-350 transition-shadow ocus:outline-2 focus:outline-offset-2 focus:outline-primary active:bg-black/75"
                 >
                   {isLastStep ? "Enviar" : "Siguiente"}
                 </button>
