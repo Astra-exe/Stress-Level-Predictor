@@ -54,7 +54,7 @@ export default function Results({ resultsData }: ResultsProps) {
   };
 
   const handleClickShareTwitter = () => {
-    const tweetText = `Mi nivel de estrés 💥 es del ${porcentageValue}% 😮 \n¿Quieres conocer el tuyo? 🤔 realiza un test 📝 en `;
+    const tweetText = `Mi nivel de estrés 💥 es del ${porcentageValue}% 😮 \n¿Quieres conocer el tuyo? 🤔 realiza un test 📝 en https://stress-predictor-blond.vercel.app/`;
     const twitterUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(
       tweetText
     )}`;
