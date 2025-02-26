@@ -11,6 +11,8 @@
 
   --animate-blob: blob 7s ease-in-out infinite;
   --animate-border-spin: border-spin 7s linear infinite;
+  --animate-slide-in: slide-in 800ms ease-in;
+  --animate-slide-out: slide-out 1000ms ease-out forwards;
 
   @keyframes blob {
     0% {
@@ -30,6 +32,31 @@
   @keyframes border-spin {
     100% {
       transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes slide-in {
+    0% {
+        transform: translateY(100%);
+    }
+    50% {
+        transform: translateY(-15%);
+    }
+    80% {
+        transform: translateY(5%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-out {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(100%);
+      opacity: 0;
     }
   }
 }
