@@ -1,7 +1,11 @@
 import ReactMarkdown from "react-markdown";
 import StressBar from "./StressBar";
 import Skeleton from "./Skeleton";
+import Copy from "./Icons/Copy";
+import CopyMd from "./Icons/CopyMd";
+import Twitter from "./Icons/Twitter";
 import { useRef } from "react";
+import { useToast } from "../context/ToastContext";
 
 type ResultsData = {
   stressLevel: null | number;
@@ -23,15 +27,15 @@ export default function Results({ resultsData }: ResultsProps) {
       100
   );
   const articleRef = useRef<HTMLElement | null>(null);
+  const toast = useToast();
 
   const handleClickCopyMarkdown = async () => {
     try {
       await navigator.clipboard.writeText(recommendations ?? "");
-      console.log("Content copied to clipboard");
-      /* Resolved - text copied to clipboard successfully */
+      toast.open("Copiado al clipboard con exito");
     } catch (err) {
       console.error("Failed to copy: ", err);
-      /* Rejected - text failed to copy to the clipboard */
+      toast.open("Fallo al copiar");
     }
   };
 
@@ -41,9 +45,10 @@ export default function Results({ resultsData }: ResultsProps) {
     try {
       if (textContext) {
         await navigator.clipboard.writeText(textContext);
-        console.log("Content copied to clipboard");
+        toast.open("Copiado al clipboard con exito");
       }
     } catch (err) {
+      toast.open("Fallo al copiar");
       console.error("Failed to copy: ", err);
     }
   };
@@ -73,7 +78,7 @@ export default function Results({ resultsData }: ResultsProps) {
         <div className="relative w-full mx-auto group">
           <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
           <div className="py-14 xs:py-16 px-6 xs:px-10 md:px-12 lg:px-20 bg-linear-to-r from-[#ECEEED] to-[#F9F9F9] drop-shadow-2xl rounded-xl">
-            <span className="bottom-0 right-5 absolute opacity-5">
+            <span className="top-48 right-5 absolute opacity-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="188"
@@ -101,24 +106,33 @@ export default function Results({ resultsData }: ResultsProps) {
               )}
             </article>
             {recommendations && (
-              <div className="">
+              <div className="mt-10 flex justify-end gap-1 rounded-lg items-center">
                 <button
-                  className="px-3 py-1.5 border cursor-pointer hover:bg-primary transition-colors"
+                  className="px-3 py-2 rounded-lg cursor-pointer focus:outline-2 focus:outline-offset-2 focus:outline-primary focus:bg-primary/20 hover:bg-primary/20 transition-colors"
                   onClick={handleClickCopyMarkdown}
+                  title="Copiar en Markdown"
                 >
-                  Copy as markdown
+                  <span>
+                    <CopyMd />
+                  </span>
                 </button>
                 <button
-                  className="px-3 py-1.5 border cursor-pointer hover:bg-primary transition-colors"
+                  className="px-3 py-2 rounded-lg cursor-pointer focus:outline-2 focus:outline-offset-2 focus:outline-primary focus:bg-primary/20 hover:bg-primary/20 transition-colors"
                   onClick={handleClickCopyText}
+                  title="Copiar texto"
                 >
-                  Copy as text
+                  <span>
+                    <Copy />
+                  </span>
                 </button>
                 <button
-                  className="px-3 py-1.5 border cursor-pointer hover:bg-primary transition-colors"
+                  className="px-3 py-2 rounded-lg cursor-pointer focus:outline-2 focus:outline-offset-2 focus:outline-primary focus:bg-primary/20 hover:bg-primary/20 transition-colors"
                   onClick={handleClickShareTwitter}
+                  title="Compartir nivel de estres en X"
                 >
-                  Share on X
+                  <span>
+                    <Twitter />
+                  </span>
                 </button>
               </div>
             )}
