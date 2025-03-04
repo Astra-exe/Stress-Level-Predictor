@@ -77,7 +77,7 @@ Asegúrate de tener Python y Node.js instalados en tu dispositivo local.
 
 ### Pruebas
 * Puedes probar el modelo con tus propios datos en el entorno local.
-* También puedes probar la herramienta en *link*
+* También puedes probar la herramienta en: <a href="https://stress-predictor-blond.vercel.app/">Stress Manager</a>
 
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
