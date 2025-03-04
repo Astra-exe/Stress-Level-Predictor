@@ -4,7 +4,7 @@
   <p align="center">
     <b>Stress Manager</b> es una herramienta que utiliza inteligencia artificial para predecir niveles de estrés basándose en diversos factores. Además, genera recomendaciones personalizadas para los usuarios.
     <br />
-    <a href="https://github.com/Astra-exe/Stress-Level-Predictor"><strong>Explora el proyecto »</strong></a>
+    <a href="https://medium.com/@juan.ramirez.j99/mindfulness-y-machine-learning-72fc42ea86c5"><strong>Mindfulness y Machine Learning »</strong></a>
   </p>
 </div>
 
