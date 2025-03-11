@@ -4,7 +4,7 @@
   <p align="center">
     <b>Stress Manager</b> es una herramienta que utiliza inteligencia artificial para predecir niveles de estrés basándose en diversos factores. Además, genera recomendaciones personalizadas para los usuarios.
     <br />
-    <a href="https://github.com/Astra-exe/Stress-Level-Predictor"><strong>Explora el proyecto »</strong></a>
+    <a href="https://medium.com/@juan.ramirez.j99/mindfulness-y-machine-learning-72fc42ea86c5"><strong>Mindfulness y Machine Learning »</strong></a>
   </p>
 </div>
 
@@ -77,7 +77,7 @@ Asegúrate de tener Python y Node.js instalados en tu dispositivo local.
 
 ### Pruebas
 * Puedes probar el modelo con tus propios datos en el entorno local.
-* También puedes probar la herramienta en *link*
+* También puedes probar la herramienta en: <a href="https://stress-predictor-blond.vercel.app/">Stress Manager</a>
 
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
