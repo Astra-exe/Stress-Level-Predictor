@@ -21,11 +21,13 @@ const MIN_STRESS_LEVEL = 2; //2 cause stress is never 0
 
 export default function Results({ resultsData }: ResultsProps) {
   const { stressLevel, recommendations } = resultsData;
+
   const porcentageValue = Math.round(
-    ((stressLevel ?? 5 - MIN_STRESS_LEVEL) /
+    (((stressLevel ?? 5) - MIN_STRESS_LEVEL) /
       (MAX_STRESS_LEVEL - MIN_STRESS_LEVEL)) *
       100
   );
+  console.log({ stressLevel, porcentageValue });
   const articleRef = useRef<HTMLElement | null>(null);
   const toast = useToast();
 
