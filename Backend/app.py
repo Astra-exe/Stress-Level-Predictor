@@ -73,7 +73,7 @@ def recommendations(stress_level, bmi, sleep_duration):
     - Evita usar los titulos de ejemplo, sé original los ejemplos solo están para guiar.
     - Incluir 1 emoji por sección.
     - Evitar términos numéricos del estrés (solo "elevado", etc).
-    - Trata de ser variado al dar las recomendaciones.
+    - Trata de ser variado al dar las recomendaciones, sé original para entregar una respuesta personalizada en cada solicitud.
     - Evita tus mensajes de respuesta (ejemplo: Aqui tienes, claro) limitate a responder en el formato dado
     - El formato de salida debe ser 100% markdown. No olvides los saltos de linea
     """
